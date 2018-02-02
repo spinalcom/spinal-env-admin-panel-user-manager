@@ -84,5 +84,16 @@ angular.module('app.spinal-pannel')
         console.log(user);
       };
 
+      $scope.getUserIcon = (user) => {
+        if (user.selected === true)
+          return "done";
+        return "person";
+      };
+      $scope.clickUserIcon = (user) => {
+        console.log("clickUserIcon");
+        user.selected = !user.selected;
+      };
+
+
     }
   ]);
