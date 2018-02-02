@@ -7,7 +7,7 @@
 
 <md-list class="md-dense">
   <md-subheader class="md-no-sticky">Users List</md-subheader>
-  <md-list-item ng-repeat="person in users" class="noright md-3-line" ng-class="{person.selected: '#4185f4'}">
+  <md-list-item ng-repeat="person in users" class="noright md-3-line" ng-style="{person.selected: 'background-color: #4185f4'}">
     <ng-md-icon icon="{{getUserIcon(person)}}" ng-click="clickUserIcon(person)" style="fill:white;" options='{"duration": 375, "rotation": "none"}'
       size="24" class="md-avatar-icon"></ng-md-icon>
     <div class="md-list-item-text">
