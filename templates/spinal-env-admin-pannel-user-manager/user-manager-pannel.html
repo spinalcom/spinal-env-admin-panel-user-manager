@@ -9,7 +9,7 @@
   <md-subheader class="md-no-sticky">Users List</md-subheader>
   <md-list-item ng-repeat="person in users" class="noright md-3-line" ng-attr-style="{{selectedStyle(person)}}">
     <ng-md-icon icon="{{getUserIcon(person)}}" ng-click="clickUserIcon(person)" style="fill:white;" options='{"duration": 375, "rotation": "none"}'
-      size="24" class="md-avatar-icon"></ng-md-icon>
+      class="md-avatar-icon"></ng-md-icon>
     <div class="md-list-item-text">
       <h3>{{ person.name }}</h3>
       <h4>{{ getUserTypeString(person) }}</h4>
