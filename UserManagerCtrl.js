@@ -93,7 +93,11 @@ angular.module('app.spinal-pannel')
         console.log("clickUserIcon");
         user.selected = !user.selected;
       };
-
+      $scope.selectedStyle = (user) => {
+        if (user.selected)
+          return 'background-color: #4185f4';
+        return '';
+      };
 
     }
   ]);
