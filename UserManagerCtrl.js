@@ -32,7 +32,7 @@ angular.module('app.spinal-pannel')
             return "undef";
 
         }
-      }
+      };
 
       function findUserId(arr, id) {
         return arr.findIndex((obj) => {
@@ -54,11 +54,11 @@ angular.module('app.spinal-pannel')
           let idx = findUserId(dest, origin[i].id);
           if (idx === -1) {
             var u = {
-              username: origin[i].name,
+              name: origin[i].name,
               type: origin[i].type || 0,
               id: origin[i].id,
               selected: false,
-            }
+            };
             dest.splice(i, 0, u);
           } else {
             dest[idx].name = origin[i].name;
