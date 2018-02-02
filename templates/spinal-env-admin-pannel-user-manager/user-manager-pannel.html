@@ -1,0 +1,28 @@
+<md-button class="md-fab" aria-label="addUsers">
+  <ng-md-icon icon="delete" style="fill:white; height: 24px;" class="md-secondary"></ng-md-icon>
+  <ng-md-icon icon="person_add" style="fill:white; height: 24px;" class="md-avatar-icon"></ng-md-icon>
+</md-button>
+
+<md-list class="md-dense">
+  <md-subheader class="md-no-sticky">Users List</md-subheader>
+  <md-list-item ng-repeat="person in users" ng-click="goToPerson(person.name, $event)" class="noright md-3-line">
+    <ng-md-icon icon="person" style="fill:white; height: 24px;" class="md-avatar-icon"></ng-md-icon>
+    <div class="md-list-item-text">
+      <h3>{{ person.name }}</h3>
+      <h4>{{ getUserTypeString(person) }}</h4>
+      <p>{{ person.id }}</p>
+    </div>
+    <ng-md-icon icon="edit" style="fill:white; height: 24px;" class="md-secondary"></ng-md-icon>
+    <!-- <ng-md-icon icon="delete" style="fill:white; height: 24px;" class="md-secondary"></ng-md-icon> -->
+    <!-- <md-select ng-model="person.type" placeholder="account type" md-on-close="onUserTypeChange(person)" class="md-secondary md-no-underline">
+      <md-option value="0">User</md-option>
+      <md-option value="1">Admin</md-option>
+      <md-option value="2">Suspended</md-option>
+    </md-select> -->
+
+    <!-- <ng-md-icon icon="person" style="fill:white; height: 24px;" class="md-secondary"></ng-md-icon> -->
+    <md-checkbox class="md-secondary" ng-model="person.selected"></md-checkbox>
+    <!-- <md-icon md-svg-icon="communication:email" ng-click="doSecondaryAction($event)" aria-label="Send Email" class="md-secondary md-hue-3"></md-icon>
+    <md-icon class="md-secondary" ng-click="doSecondaryAction($event)" aria-label="Chat" md-svg-icon="communication:message"></md-icon> -->
+  </md-list-item>
+</md-list>
