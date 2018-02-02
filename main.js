@@ -20,11 +20,11 @@ require("./UserManagerCtrl");
         }
 
         goldenLayoutService.registerPannel({
-          id: "drag-log-pannel",
-          name: "Log",
+          id: "drag-users-list-pannel",
+          name: "Users List",
           cfg: {
             isClosable: true,
-            title: "Log",
+            title: "Users List",
             type: 'component',
             width: 20,
             componentName: 'SpinalHome',

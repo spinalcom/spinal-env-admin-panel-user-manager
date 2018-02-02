@@ -46,7 +46,7 @@ angular.module('app.spinal-pannel')
         for (i = 0; i < dest.length; i++) {
           let idx = findUserId(origin, dest[i].id);
           if (idx === -1) {
-            dest[i].splice(i, 1);
+            dest.splice(i, 1);
             --i;
           }
         }
@@ -59,7 +59,7 @@ angular.module('app.spinal-pannel')
               id: origin[i].id,
               selected: false,
             }
-            dest[i].splice(i, 0, u);
+            dest.splice(i, 0, u);
           } else {
             dest[idx].name = origin[i].name;
             dest[idx].type = origin[i].type || 0;
