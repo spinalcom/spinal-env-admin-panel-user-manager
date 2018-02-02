@@ -5,7 +5,7 @@
   <ng-md-icon icon="person_add" style="fill:white; height: 24px;" ng-click="deleteSelected()" class="md-avatar-icon"></ng-md-icon>
 </md-button>
 
-<md-list class="md-dense">
+<md-list class="">
   <md-subheader class="md-no-sticky">Users List</md-subheader>
   <md-list-item ng-repeat="person in users" class="noright md-3-line" ng-attr-style="{{selectedStyle(person)}}">
     <ng-md-icon icon="{{getUserIcon(person)}}" ng-click="clickUserIcon(person)" style="fill:white;" options='{"duration": 375, "rotation": "none"}'
