@@ -4,6 +4,28 @@ angular.module('app.spinal-pannel')
       $scope.injector = $injector;
       $scope.users = [];
 
+
+      $scope.mainMenuBtn = [{
+          label: "addUsers",
+          action: addUser,
+          icon: "person_add"
+        },
+        {
+          label: "deleteSelectedUsers",
+          action: deleteSelected,
+          icon: "delete"
+        },
+        {
+          label: "clearSelect",
+          action: clearSelect,
+          icon: "block"
+        },
+      ];
+
+      $scope.mainMenuClick = (btn) => {
+        btm.action(btn);
+      };
+
       spinalModelDictionary.init().then(function () {
         // $scope.users = ;
         // console.log($scope.users);
@@ -42,7 +64,6 @@ angular.module('app.spinal-pannel')
 
       $scope.merge_users = (origin, dest) => {
         var i;
-
         for (i = 0; i < dest.length; i++) {
           let idx = findUserId(origin, dest[i].id);
           if (idx === -1) {
@@ -65,8 +86,8 @@ angular.module('app.spinal-pannel')
             dest[idx].type = origin[i].type || 0;
             dest[idx].id = origin[i].id;
           }
-
         }
+        $scope.$apply();
       };
       $scope.onUserTypeChange = (person) => {
         console.log("onUserTypeChange");
@@ -97,6 +118,11 @@ angular.module('app.spinal-pannel')
         if (user.selected)
           return 'background-color: #4185f4';
         return '';
+      };
+      $scope.clearSelect = () => {
+        for (var i = 0; i < $scope.users.length; i++) {
+          $scope.users[i].selected = false;
+        }
       };
 
     }
