@@ -23,7 +23,7 @@ angular.module('app.spinal-pannel')
       ];
 
       $scope.mainMenuClick = (btn) => {
-        btm.action(btn);
+        btn.action(btn);
       };
 
       spinalModelDictionary.init().then(function () {
