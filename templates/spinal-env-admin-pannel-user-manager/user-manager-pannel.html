@@ -1,7 +1,7 @@
 <md-list class="">
   <md-list-item class="md-1-line" ng-attr-style="{{selectedStyle(person)}}">
     <section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
-      <md-button ng-repeat="btn in mainMenuBtn" ng-if="showMainBtn(btn)" class="md-fab" aria-label="btn.label" style="height: 40px; width: 40px;"
+      <md-button ng-repeat="btn in mainMenuBtn" ng-if="showMainBtn(btn)" class="md-fab fade" aria-label="btn.label" style="height: 40px; width: 40px;"
         ng-click="mainMenuClick(btn)">
         <ng-md-icon icon="{{btn.icon}}" style="fill:white; height: 24px;" class=""></ng-md-icon>
       </md-button>
