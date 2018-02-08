@@ -106,20 +106,39 @@ angular.module('app.spinal-pannel')
           $scope.users[i].selected = false;
         }
       };
+      $scope.haveSelectedUsers = () => {
+        for (var i = 0; i < $scope.users.length; i++) {
+          if ($scope.users[i].selected === true)
+            return true;
+        }
+        return false;
+      }
+      $scope.showMainBtn = (btn) => {
+        if (btn.show_only_if_selected === true) {
+          if ($scope.haveSelectedUsers())
+            return true;
+          return false;
+        }
+        return true;
+      };
+
       $scope.mainMenuBtn = [{
           label: "addUsers",
           action: $scope.addUser,
-          icon: "person_add"
+          icon: "person_add",
+          show_only_if_selected: false
         },
         {
           label: "deleteSelectedUsers",
           action: $scope.deleteSelected,
-          icon: "delete"
+          icon: "delete",
+          show_only_if_selected: true
         },
         {
           label: "clearSelect",
           action: $scope.clearSelect,
-          icon: "block"
+          icon: "block",
+          show_only_if_selected: true
         },
       ];
 
