@@ -3,26 +3,8 @@ angular.module('app.spinal-pannel')
     function ($scope, $injector, authService, $mdToast, $interval, $timeout, spinalModelDictionary) {
       $scope.injector = $injector;
       $scope.users = [];
-
-
-      $scope.mainMenuBtn = [{
-          label: "addUsers",
-          action: $scope.addUser,
-          icon: "person_add"
-        },
-        {
-          label: "deleteSelectedUsers",
-          action: $scope.deleteSelected,
-          icon: "delete"
-        },
-        {
-          label: "clearSelect",
-          action: $scope.clearSelect,
-          icon: "block"
-        },
-      ];
-
       $scope.mainMenuClick = (btn) => {
+        
         btn.action(btn);
       };
 
@@ -124,6 +106,22 @@ angular.module('app.spinal-pannel')
           $scope.users[i].selected = false;
         }
       };
+      $scope.mainMenuBtn = [{
+          label: "addUsers",
+          action: $scope.addUser,
+          icon: "person_add"
+        },
+        {
+          label: "deleteSelectedUsers",
+          action: $scope.deleteSelected,
+          icon: "delete"
+        },
+        {
+          label: "clearSelect",
+          action: $scope.clearSelect,
+          icon: "block"
+        },
+      ];
 
     }
   ]);
