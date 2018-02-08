@@ -4,7 +4,6 @@
   "description": "core class to create and add the log pannel in spinaldrive",
   "main": "main.js",
   "dependencies": {
-    "spinal-env-drive-core": "git+https://github.com/spinalcom/spinal-env-drive-core.git"
   },
   "devDependencies": {},
   "scripts": {
