@@ -115,7 +115,7 @@ angular.module('app.spinal-pannel')
         user.selected = !user.selected;
       };
       $scope.selectedStyle = (user) => {
-        if (user.selected)
+        if (user && user.selected)
           return 'background-color: #4185f4';
         return '';
       };
