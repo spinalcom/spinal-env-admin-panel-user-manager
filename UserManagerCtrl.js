@@ -7,17 +7,17 @@ angular.module('app.spinal-pannel')
 
       $scope.mainMenuBtn = [{
           label: "addUsers",
-          action: addUser,
+          action: $scope.addUser,
           icon: "person_add"
         },
         {
           label: "deleteSelectedUsers",
-          action: deleteSelected,
+          action: $scope.deleteSelected,
           icon: "delete"
         },
         {
           label: "clearSelect",
-          action: clearSelect,
+          action: $scope.clearSelect,
           icon: "block"
         },
       ];
