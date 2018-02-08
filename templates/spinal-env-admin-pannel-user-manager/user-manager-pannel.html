@@ -26,7 +26,7 @@
       <h4>{{ getUserTypeString(person) }}</h4>
       <p>{{ person.id }}</p>
     </div>
-    <ng-md-icon icon="edit" style="fill:white; height: 24px;" ng-click="editUser(person)" class="md-secondary"></ng-md-icon>
+    <ng-md-icon icon="edit" style="fill:white; height: 24px;" ng-click="editUser(person)" aria-label="editUser" class="md-secondary"></ng-md-icon>
     <!-- <ng-md-icon icon="delete" style="fill:white; height: 24px;" class="md-secondary"></ng-md-icon> -->
     <!-- <md-select ng-model="person.type" placeholder="account type" md-on-close="onUserTypeChange(person)" class="md-secondary md-no-underline">
       <md-option value="0">User</md-option>
