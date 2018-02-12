@@ -1,0 +1,52 @@
+<md-dialog aria-label="Create User">
+  <form name="newuser" ng-submit="newUserOK(newuser)" ng-cloak>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Create User</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="newUserCancel()">
+          <ng-md-icon icon="close" style="fill:white;" aria-label="Close dialog" class=""></ng-md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+
+    <md-dialog-content>
+      <div class="md-dialog-content">
+        <md-input-container class="md-block">
+          <label>User name</label>
+          <input ng-model="newuser.name" name="name" required/>
+          <div ng-messages="projectForm.name.$error">
+            <div ng-message="required">This is required.</div>
+          </div>
+        </md-input-container>
+        <md-input-container class="md-block">
+          <label>Password</label>
+          <input type="{{passwordInputType}}" ng-model="user.password" name="password" required/>
+          <ng-md-icon icon="remove_red_eye" style="fill:white;" aria-label="view password" class="" ng-mousedown='showPassword()' ng-mouseup="hidePassword()"></ng-md-icon>
+          <div ng-messages="projectForm.password.$error">
+            <div ng-message="required">This is required.</div>
+          </div>
+        </md-input-container>
+        <md-input-container class="md-block">
+          <label>Confirm Password</label>
+          <input type="{{passwordInputType}}" ng-model="user.confirm_password" name="confirmPassword" required />
+          <ng-md-icon icon="remove_red_eye" style="fill:white;" aria-label="view password" class="" ng-mousedown='showPassword()' ng-mouseup="hidePassword()"></ng-md-icon>
+          <div ng-messages="projectForm.password.$error">
+            <div ng-message="required">This is required.</div>
+          </div>
+        </md-input-container>
+      </div>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+      <span flex></span>
+      <md-button ng-click="newUserCancel()">
+        Cancel
+      </md-button>
+      <md-button ng-click="newUserOK(newuser)" class="md-primary">
+        Create
+      </md-button>
+    </md-dialog-actions>
+  </form>
+
+
+</md-dialog>

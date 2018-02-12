@@ -1,20 +1,10 @@
 <md-list class="">
-  <md-list-item class="md-1-line" ng-attr-style="{{selectedStyle(person)}}">
+  <md-list-item class="md-1-line" style="padding: 0 8px;">
     <section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
       <md-button ng-repeat="btn in mainMenuBtn" ng-if="showMainBtn(btn)" class="md-fab" aria-label="btn.label" style="height: 40px; width: 40px;"
         ng-click="mainMenuClick(btn)">
         <ng-md-icon icon="{{btn.icon}}" style="fill:white; height: 24px;" class=""></ng-md-icon>
       </md-button>
-
-      <!-- <md-button class="md-fab" aria-label="addUsers" style="height: 40px; width: 40px;" ng-click="addUser()">
-        <ng-md-icon icon="person_add" style="fill:white; height: 24px;" class=""></ng-md-icon>
-      </md-button>
-      <md-button class="md-fab" aria-label="addUsers" style="height: 40px; width: 40px;" ng-click="deleteSelected()">
-        <ng-md-icon icon="delete" style="fill:white; height: 24px;" class=""></ng-md-icon>
-      </md-button>
-      <md-button class="md-fab" aria-label="clearSelect" style="height: 40px; width: 40px;" ng-click="clearSelect()">
-        <ng-md-icon icon="block" style="fill:white; height: 24px;" class=""></ng-md-icon>
-      </md-button> -->
     </section>
   </md-list-item>
   <md-subheader class="md-no-sticky">Users List</md-subheader>
@@ -27,16 +17,5 @@
       <p>{{ person.id }}</p>
     </div>
     <ng-md-icon icon="edit" style="fill:white; height: 24px;" ng-click="editUser(person)" aria-label="editUser" class="md-secondary"></ng-md-icon>
-    <!-- <ng-md-icon icon="delete" style="fill:white; height: 24px;" class="md-secondary"></ng-md-icon> -->
-    <!-- <md-select ng-model="person.type" placeholder="account type" md-on-close="onUserTypeChange(person)" class="md-secondary md-no-underline">
-      <md-option value="0">User</md-option>
-      <md-option value="1">Admin</md-option>
-      <md-option value="2">Suspended</md-option>
-    </md-select> -->
-
-    <!-- <ng-md-icon icon="person" style="fill:white; height: 24px;" class="md-secondary"></ng-md-icon> -->
-    <!-- <md-checkbox class="md-secondary" ng-model="person.selected"></md-checkbox> -->
-    <!-- <md-icon md-svg-icon="communication:email" ng-click="doSecondaryAction($event)" aria-label="Send Email" class="md-secondary md-hue-3"></md-icon>
-    <md-icon class="md-secondary" ng-click="doSecondaryAction($event)" aria-label="Chat" md-svg-icon="communication:message"></md-icon> -->
   </md-list-item>
 </md-list>

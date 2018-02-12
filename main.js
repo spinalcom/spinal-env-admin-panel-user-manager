@@ -14,6 +14,12 @@ require("./UserManagerCtrl");
         let toload = [{
           uri: '../templates/spinal-env-admin-pannel-user-manager/user-manager-pannel.html',
           name: 'user-manager-pannel.html'
+        }, {
+          uri: '../templates/spinal-env-admin-pannel-user-manager/user-manager-create-user.html',
+          name: 'user-manager-create-user.html'
+        }, {
+          uri: '../templates/spinal-env-admin-pannel-user-manager/user-manager-edit.html',
+          name: 'user-manager-edit.html'
         }];
         for (var i = 0; i < toload.length; i++) {
           load_template(toload[i].uri, toload[i].name);
