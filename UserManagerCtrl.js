@@ -2,19 +2,15 @@
   compareTo.$inject = [];
 
   function compareTo() {
-
     return {
       require: "ngModel",
       scope: {
         compareTolValue: "=compareTo"
       },
       link: function (scope, element, attributes, ngModel) {
-
         ngModel.$validators.compareTo = function (modelValue) {
-
           return modelValue == scope.compareTolValue;
         };
-
         scope.$watch("compareTolValue", function () {
           ngModel.$validate();
         });
@@ -25,7 +21,6 @@
   angular.module('app.spinal-pannel')
     .directive('compareTo', compareTo)
     .provider('$copyToClipboard', [function () {
-
       this.$get = ['$q', '$window', function ($q, $window) {
         var body = angular.element($window.document.body);
         var textarea = angular.element('<textarea/>');
@@ -40,14 +35,12 @@
             textarea.val(stringToCopy);
             body.append(textarea);
             textarea[0].select();
-
             try {
               var successful = $window.document.execCommand('copy');
               if (!successful) throw successful;
               deferred.resolve(successful);
             } catch (err) {
               deferred.reject(err);
-              //window.prompt("Copy to clipboard: Ctrl+C, Enter", toCopy);
             } finally {
               textarea.remove();
             }
@@ -57,8 +50,8 @@
       }];
     }])
 
-    .controller('UserManagerCtrl', ["$scope", "$injector", "authService", "$mdToast", "$interval", "$timeout", "spinalModelDictionary", "$mdDialog", "$templateCache",
-      function ($scope, $injector, authService, $mdToast, $interval, $timeout, spinalModelDictionary, $mdDialog, $templateCache) {
+    .controller('UserManagerCtrl', ["$scope", "$injector", "$mdToast", "$interval", "$timeout", "spinalModelDictionary", "$mdDialog", "$templateCache", "$q", "SpinalUserMnanagerService",
+      function ($scope, $injector, $mdToast, $interval, $timeout, spinalModelDictionary, $mdDialog, $templateCache, $q, SpinalUserMnanagerService) {
         $scope.injector = $injector;
         $scope.users = [];
         $scope.mainMenuClick = (btn) => {
@@ -127,14 +120,13 @@
         };
 
         $scope.addUser = () => {
-          console.log("addUser");
           $mdDialog.show({
             ariaLabel: 'NewUser',
             template: $templateCache.get("user-manager-create-user.html"),
             parent: angular.element(document.body),
             clickOutsideToClose: true,
             fullscreen: true,
-            controller: ["$scope", "$mdDialog", "$copyToClipboard", "$mdToast", "$window", NewUserCtrl],
+            controller: ["$scope", "$mdDialog", "$copyToClipboard", "$mdToast", "$window", "SpinalUserMnanagerService", NewUserCtrl],
             locals: {
               spinalModelDictionary: spinalModelDictionary,
             }
@@ -144,16 +136,13 @@
 
 
         $scope.editUser = (user) => {
-          console.log("editUser");
-          console.log(user);
-
           $mdDialog.show({
             ariaLabel: 'EditUser',
             template: $templateCache.get("user-manager-edit.html"),
-            parent: angular.element(document.body),
+            // parent: angular.element(document.body),
             clickOutsideToClose: true,
             fullscreen: true,
-            controller: ["$scope", "$mdDialog", "$copyToClipboard", "$mdToast", "$window", "user", EditUserCtrl],
+            controller: ["$scope", "$mdDialog", "$copyToClipboard", "$mdToast", "$window", "user", "SpinalUserMnanagerService", EditUserCtrl],
             locals: {
               user: user,
               spinalModelDictionary: spinalModelDictionary,
@@ -167,7 +156,6 @@
           return "person";
         };
         $scope.clickUserIcon = (user) => {
-          console.log("clickUserIcon");
           user.selected = !user.selected;
         };
         $scope.selectedStyle = (user) => {
@@ -196,7 +184,26 @@
           return true;
         };
         $scope.deleteSelected = () => {
-          console.log("deleteSelected");
+          var selected = [];
+          for (var i = 0; i < $scope.users.length; i++) {
+            if ($scope.users[i].selected === true)
+              selected.push($scope.users[i].name);
+          }
+
+          $mdDialog.show($mdDialog.confirm()
+              .title("Confirm the supression of " + selected.join(', '))
+              .ok('Yes').cancel('No'))
+            .then(function name(params) {
+              return $q.all(selected.map(function (name) {
+                return SpinalUserMnanagerService.delete_account_by_admin(name);
+              })).then(function () {
+                $mdToast.showSimple("Delete User " + selected.join(', ') + " success.");
+                $mdDialog.hide();
+              }, function (err) {
+                $mdToast.showSimple("Error: Delete User " + selected.join(', ') + " unsuccessful.");
+                console.error(selected.join(', '));
+              });
+            }, function () {});
         };
 
         $scope.mainMenuBtn = [{
@@ -222,7 +229,7 @@
       }
     ]);
 
-  var EditUserCtrl = function ($scope, $mdDialog, $copyToClipboard, $mdToast, $window, user) {
+  var EditUserCtrl = function ($scope, $mdDialog, $copyToClipboard, $mdToast, $window, user, SpinalUserMnanagerService) {
 
     $scope.userEdit = user;
     $scope.change_password = {
@@ -260,9 +267,32 @@
       $scope.passwordInputType = 'password';
     };
 
+    $scope.delete_account = () => {
+      // $mdDialog.show($mdDialog.confirm()
+      //     .title("Confirm the supression of " + user.name).multiple(true)
+      //     .parent(angular.element(document.body))
+      let result = confirm("Confirm the supression of " + user.name);
+      if (result)
+        return SpinalUserMnanagerService.delete_account_by_admin(user.name)
+          .then(function () {
+            $mdToast.showSimple("Delete User " + user.name + " success.");
+            $mdDialog.hide();
+          }, function (err) {
+            $mdToast.showSimple("Error: Delete User " + user.name + " unsuccessful.");
+            console.error(err);
+          });
+    };
 
     $scope.changeType = (userType) => {
-      console.log(userType);
+      let result = confirm("Confirm the change of permissions level for " + user.name);
+      if (result)
+        return SpinalUserMnanagerService.change_account_rights_by_admin(user.name, userType)
+          .then(function () {
+            $mdToast.showSimple("Change permissions success.");
+          }, function (err) {
+            $mdToast.showSimple("Change permissions error.");
+            console.error(err);
+          });
     };
 
     $scope.sendMail = function (emailId, subject, message) {
@@ -271,15 +301,22 @@
       myWindow.focus();
     };
 
+    $scope.onError = function (err) {
+      $mdToast.showSimple("Error : " + err);
+    }
 
     $scope.changePasswordSubmit = (newpasswordForm, change_password, mailto) => {
       newpasswordForm.$setDirty();
       if (newpasswordForm.$valid) {
-        if (mailto) {
-          $scope.sendMail(user.name, "Your SpinalBIM password has been reset",
-            "Hello%2C%0A%0AYour%20admin%20have%20requested%20to%20reset%20your%20password%2C%0A%0AThe%20new%20password%20is%20the%20following%20%3A%0A%0A%0A" +
-            encodeURI(change_password.password));
-        }
+        SpinalUserMnanagerService.change_password_by_admin(user.name, change_password.password)
+          .then(function () {
+            if (mailto) {
+              $scope.sendMail(user.name, "Your SpinalBIM password has been reset",
+                "Hello%2C%0A%0AYour%20admin%20have%20requested%20to%20reset%20your%20password%2C%0A%0AThe%20new%20password%20is%20the%20following%20%3A%0A%0A%0A" +
+                encodeURI(change_password.password));
+            }
+            $mdToast.showSimple("Password has been successfully modified.");
+          }, $scope.onError);
         return;
       }
     };
@@ -300,7 +337,7 @@
         $copyToClipboard.copy(change_password.password).then(function () {
           $mdToast.showSimple("Password copied to clipboard.");
         }, function () {
-          console.log("copy error");
+          console.error("copy error");
           $mdToast.show(toast_clipboard_error).then(function (res) {
             if (res === 'ok')
               window.prompt("Copy to clipboard: Ctrl+C", change_password.password);
@@ -308,14 +345,16 @@
 
         });
       } else {
-        console.log("copy error");
+        console.error("copy error");
       }
     };
-
+    $scope.cancel = function () {
+      $mdDialog.cancel();
+    }
 
   };
 
-  var NewUserCtrl = function ($scope, $mdDialog, $copyToClipboard, $mdToast, $window) {
+  var NewUserCtrl = function ($scope, $mdDialog, $copyToClipboard, $mdToast, $window, SpinalUserMnanagerService) {
 
     $scope.password_generator = (len) => {
       var length = (len) ? (len) : (10);
@@ -346,7 +385,6 @@
       type: "1"
     };
     $scope.newUserCancel = () => {
-      console.log("newUserCancel");
       $mdDialog.cancel();
     };
     // Set the default value of inputType
@@ -365,16 +403,27 @@
       myWindow.focus();
     };
 
+    $scope.onError = function (err) {
+      $mdToast.showSimple("Error : " + err);
+    }
     $scope.newUserOK = (usrForm, usr, doSendMail) => {
       usrForm.$setDirty();
       if (usrForm.$valid) {
         if (usr.password === usr.confirm_password) {
-          if (doSendMail)
-            $scope.sendMail(usr.name, "Your SpinalBIM account has been created",
-              "Hello%2C%0A%0AYour%20admin%20have%20created%20your%20SpinalBIM%20account.%0A%0ALogin%09%3A%09" +
-              encodeURI(usr.name) + "%0APassword%09%3A%09" + encodeURI(usr.password) +
-              "%0A%0A%0APlease%20change%20your%20account%20password%20when%20logged%20in.");
-          $mdDialog.hide(usr);
+          SpinalUserMnanagerService.new_account(usr.name, usr.password)
+            .then(function () {
+              return SpinalUserMnanagerService.change_account_rights_by_admin(usr.name, usr.type)
+                .then(function () {
+                  if (doSendMail) {
+                    $scope.sendMail(usr.name, "Your SpinalBIM account has been created",
+                      "Hello%2C%0A%0AYour%20admin%20have%20created%20your%20SpinalBIM%20account.%0A%0ALogin%09%3A%09" +
+                      encodeURI(usr.name) + "%0APassword%09%3A%09" + encodeURI(usr.password) +
+                      "%0A%0A%0APlease%20change%20your%20account%20password%20when%20logged%20in.");
+                  }
+                  $mdToast.showSimple("Account successfully created.");
+                  $mdDialog.hide(usr);
+                }, $scope.onError)
+            }, $scope.onError);
           return;
         }
       }
@@ -396,7 +445,7 @@
         $copyToClipboard.copy(password).then(function () {
           $mdToast.showSimple("Password copied to clipboard.");
         }, function () {
-          console.log("copy error");
+          console.error("copy error");
           $mdToast.show(toast_clipboard_error).then(function (res) {
             if (res === 'ok')
               window.prompt("Copy to clipboard: Ctrl+C", password);
@@ -404,7 +453,7 @@
 
         });
       } else {
-        console.log("copy error");
+        console.error("copy error");
       }
     };
 

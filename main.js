@@ -1,4 +1,4 @@
-require("./SpinalUserMnanagerService");
+require("./SpinalUserManagerService");
 require("./UserManagerCtrl");
 (function () {
   angular.module('app.spinal-pannel')
