@@ -126,14 +126,12 @@
             parent: angular.element(document.body),
             clickOutsideToClose: true,
             fullscreen: true,
-            controller: ["$scope", "$mdDialog", "$copyToClipboard", "$mdToast", "$window", "SpinalUserMnanagerService", NewUserCtrl],
+            controller: ["$scope", "$mdDialog", "$copyToClipboard", "$mdToast", "$window", "SpinalUserManagerService", NewUserCtrl],
             locals: {
               spinalModelDictionary: spinalModelDictionary,
             }
           })
         };
-
-
 
         $scope.editUser = (user) => {
           $mdDialog.show({
