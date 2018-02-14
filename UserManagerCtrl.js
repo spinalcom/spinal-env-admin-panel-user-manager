@@ -78,11 +78,11 @@
           return "";
           // switch (person.type) {
           //   case 0:
-          //     return "0";
+          //     return "Admin";
           //   case 1:
-          //     return "1";
+          //     return "User";
           //   case 2:
-          //     return "2";
+          //     return "Suspended";
           //   default:
           //     return "undef";
           // }
@@ -108,14 +108,14 @@
             if (idx === -1) {
               var u = {
                 name: origin[i].name,
-                type: origin[i].type || 0,
+                type: origin[i].type || 1,
                 id: origin[i].id,
                 selected: false,
               };
               dest.splice(i, 0, u);
             } else {
               dest[idx].name = origin[i].name;
-              dest[idx].type = origin[i].type || 0;
+              dest[idx].type = origin[i].type || 1;
               dest[idx].id = origin[i].id;
             }
           }
@@ -343,7 +343,7 @@
       name: "",
       password: "",
       confirm_password: "",
-      type: "0"
+      type: "1"
     };
     $scope.newUserCancel = () => {
       console.log("newUserCancel");
