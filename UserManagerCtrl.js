@@ -1,57 +1,7 @@
 (function () {
-  compareTo.$inject = [];
-
-  function compareTo() {
-    return {
-      require: "ngModel",
-      scope: {
-        compareTolValue: "=compareTo"
-      },
-      link: function (scope, element, attributes, ngModel) {
-        ngModel.$validators.compareTo = function (modelValue) {
-          return modelValue == scope.compareTolValue;
-        };
-        scope.$watch("compareTolValue", function () {
-          ngModel.$validate();
-        });
-      }
-    };
-  }
-
   angular.module('app.spinal-pannel')
-    .directive('compareTo', compareTo)
-    .provider('$copyToClipboard', [function () {
-      this.$get = ['$q', '$window', function ($q, $window) {
-        var body = angular.element($window.document.body);
-        var textarea = angular.element('<textarea/>');
-        textarea.css({
-          position: 'fixed',
-          opacity: '0'
-        });
-        return {
-          copy: function (stringToCopy) {
-            var deferred = $q.defer();
-            deferred.notify("copying the text to clipboard");
-            textarea.val(stringToCopy);
-            body.append(textarea);
-            textarea[0].select();
-            try {
-              var successful = $window.document.execCommand('copy');
-              if (!successful) throw successful;
-              deferred.resolve(successful);
-            } catch (err) {
-              deferred.reject(err);
-            } finally {
-              textarea.remove();
-            }
-            return deferred.promise;
-          }
-        };
-      }];
-    }])
-
-    .controller('UserManagerCtrl', ["$scope", "$injector", "$mdToast", "$interval", "$timeout", "spinalModelDictionary", "$mdDialog", "$templateCache", "$q", "SpinalUserMnanagerService",
-      function ($scope, $injector, $mdToast, $interval, $timeout, spinalModelDictionary, $mdDialog, $templateCache, $q, SpinalUserMnanagerService) {
+    .controller('UserManagerCtrl', ["$scope", "$injector", "$mdToast", "$interval", "$timeout", "spinalModelDictionary", "$mdDialog", "$templateCache", "$q", "SpinalUserManagerService",
+      function ($scope, $injector, $mdToast, $interval, $timeout, spinalModelDictionary, $mdDialog, $templateCache, $q, SpinalUserManagerService) {
         $scope.injector = $injector;
         $scope.users = [];
         $scope.mainMenuClick = (btn) => {
@@ -130,7 +80,7 @@
             locals: {
               spinalModelDictionary: spinalModelDictionary,
             }
-          })
+          });
         };
 
         $scope.editUser = (user) => {
@@ -140,7 +90,7 @@
             // parent: angular.element(document.body),
             clickOutsideToClose: true,
             fullscreen: true,
-            controller: ["$scope", "$mdDialog", "$copyToClipboard", "$mdToast", "$window", "user", "SpinalUserMnanagerService", EditUserCtrl],
+            controller: ["$scope", "$mdDialog", "$copyToClipboard", "$mdToast", "$window", "user", "SpinalUserManagerService", EditUserCtrl],
             locals: {
               user: user,
               spinalModelDictionary: spinalModelDictionary,
@@ -193,7 +143,7 @@
               .ok('Yes').cancel('No'))
             .then(function name(params) {
               return $q.all(selected.map(function (name) {
-                return SpinalUserMnanagerService.delete_account_by_admin(name);
+                return SpinalUserManagerService.delete_account_by_admin(name);
               })).then(function () {
                 $mdToast.showSimple("Delete User " + selected.join(', ') + " success.");
                 $mdDialog.hide();
@@ -227,7 +177,7 @@
       }
     ]);
 
-  var EditUserCtrl = function ($scope, $mdDialog, $copyToClipboard, $mdToast, $window, user, SpinalUserMnanagerService) {
+  var EditUserCtrl = function ($scope, $mdDialog, $copyToClipboard, $mdToast, $window, user, SpinalUserManagerService) {
 
     $scope.userEdit = user;
     $scope.change_password = {
@@ -271,7 +221,7 @@
       //     .parent(angular.element(document.body))
       let result = confirm("Confirm the supression of " + user.name);
       if (result)
-        return SpinalUserMnanagerService.delete_account_by_admin(user.name)
+        return SpinalUserManagerService.delete_account_by_admin(user.name)
           .then(function () {
             $mdToast.showSimple("Delete User " + user.name + " success.");
             $mdDialog.hide();
@@ -284,7 +234,7 @@
     $scope.changeType = (userType) => {
       let result = confirm("Confirm the change of permissions level for " + user.name);
       if (result)
-        return SpinalUserMnanagerService.change_account_rights_by_admin(user.name, userType)
+        return SpinalUserManagerService.change_account_rights_by_admin(user.name, userType)
           .then(function () {
             $mdToast.showSimple("Change permissions success.");
           }, function (err) {
@@ -301,12 +251,12 @@
 
     $scope.onError = function (err) {
       $mdToast.showSimple("Error : " + err);
-    }
+    };
 
     $scope.changePasswordSubmit = (newpasswordForm, change_password, mailto) => {
       newpasswordForm.$setDirty();
       if (newpasswordForm.$valid) {
-        SpinalUserMnanagerService.change_password_by_admin(user.name, change_password.password)
+        SpinalUserManagerService.change_password_by_admin(user.name, change_password.password)
           .then(function () {
             if (mailto) {
               $scope.sendMail(user.name, "Your SpinalBIM password has been reset",
@@ -352,7 +302,7 @@
 
   };
 
-  var NewUserCtrl = function ($scope, $mdDialog, $copyToClipboard, $mdToast, $window, SpinalUserMnanagerService) {
+  var NewUserCtrl = function ($scope, $mdDialog, $copyToClipboard, $mdToast, $window, SpinalUserManagerService) {
 
     $scope.password_generator = (len) => {
       var length = (len) ? (len) : (10);
@@ -408,9 +358,9 @@
       usrForm.$setDirty();
       if (usrForm.$valid) {
         if (usr.password === usr.confirm_password) {
-          SpinalUserMnanagerService.new_account(usr.name, usr.password)
+          SpinalUserManagerService.new_account(usr.name, usr.password)
             .then(function () {
-              return SpinalUserMnanagerService.change_account_rights_by_admin(usr.name, usr.type)
+              return SpinalUserManagerService.change_account_rights_by_admin(usr.name, usr.type)
                 .then(function () {
                   if (doSendMail) {
                     $scope.sendMail(usr.name, "Your SpinalBIM account has been created",
