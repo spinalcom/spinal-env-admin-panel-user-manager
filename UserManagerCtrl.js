@@ -1,5 +1,5 @@
 (function () {
-  angular.module('app.spinal-pannel')
+  angular.module('app.spinal-panel')
     .controller('UserManagerCtrl', ["$scope", "$injector", "$mdToast", "$interval", "$timeout", "spinalModelDictionary", "$mdDialog", "$templateCache", "$q", "SpinalUserManagerService",
       function ($scope, $injector, $mdToast, $interval, $timeout, spinalModelDictionary, $mdDialog, $templateCache, $q, SpinalUserManagerService) {
         $scope.injector = $injector;

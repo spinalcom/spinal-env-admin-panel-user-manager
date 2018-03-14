@@ -1,4 +1,4 @@
-angular.module('app.spinal-pannel')
+angular.module('app.spinal-panel')
   .factory("SpinalUserManagerService", ['authService', 'spinalModelDictionary', '$q',
     function (authService, spinalModelDictionary, $q) {
       let factory = {};

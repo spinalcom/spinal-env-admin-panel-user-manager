@@ -1,1 +1,1 @@
-# spinal-env-admin-pannel-user-manager
+# spinal-env-admin-panel-user-manager

@@ -1,7 +1,7 @@
 require("./SpinalUserManagerService");
 require("./UserManagerCtrl");
 (function () {
-  angular.module('app.spinal-pannel')
+  angular.module('app.spinal-panel')
     .run(["$templateCache", "$http", "goldenLayoutService",
       function ($templateCache, $http, goldenLayoutService) {
         let load_template = (uri, name) => {
@@ -12,21 +12,21 @@ require("./UserManagerCtrl");
           });
         };
         let toload = [{
-          uri: '../templates/spinal-env-admin-pannel-user-manager/user-manager-pannel.html',
-          name: 'user-manager-pannel.html'
+          uri: '../templates/spinal-env-admin-panel-user-manager/user-manager-panel.html',
+          name: 'user-manager-panel.html'
         }, {
-          uri: '../templates/spinal-env-admin-pannel-user-manager/user-manager-create-user.html',
+          uri: '../templates/spinal-env-admin-panel-user-manager/user-manager-create-user.html',
           name: 'user-manager-create-user.html'
         }, {
-          uri: '../templates/spinal-env-admin-pannel-user-manager/user-manager-edit.html',
+          uri: '../templates/spinal-env-admin-panel-user-manager/user-manager-edit.html',
           name: 'user-manager-edit.html'
         }];
         for (var i = 0; i < toload.length; i++) {
           load_template(toload[i].uri, toload[i].name);
         }
 
-        goldenLayoutService.registerPannel({
-          id: "drag-users-list-pannel",
+        goldenLayoutService.registerPanel({
+          id: "drag-users-list-panel",
           name: "Users List",
           cfg: {
             isClosable: true,
@@ -35,8 +35,8 @@ require("./UserManagerCtrl");
             width: 20,
             componentName: 'SpinalHome',
             componentState: {
-              template: 'user-manager-pannel.html',
-              module: 'app.spinal-pannel',
+              template: 'user-manager-panel.html',
+              module: 'app.spinal-panel',
               controller: 'UserManagerCtrl'
             }
           }

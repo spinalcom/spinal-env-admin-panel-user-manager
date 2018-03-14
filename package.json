@@ -1,10 +1,9 @@
 {
-  "name": "spinal-env-admin-pannel-user-manager",
+  "name": "spinal-env-admin-panel-user-manager",
   "version": "1.0.0",
-  "description": "core class to create and add the log pannel in spinaldrive",
+  "description": "spinal-env-admin-panel-user-manager",
   "main": "main.js",
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -14,5 +13,5 @@
   "author": "Laurent HA TAM DAN",
   "license": "SEE LICENSE IN license.pdf",
   "src": ["main.js"],
-  "srcTemplate": ["templates/spinal-env-admin-pannel-user-manager/user-manager-pannel.html"]
+  "srcTemplate": ["templates/spinal-env-admin-panel-user-manager/user-manager-panel.html"]
 }
