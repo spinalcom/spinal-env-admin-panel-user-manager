@@ -122,7 +122,7 @@
               return true;
           }
           return false;
-        }
+        };
         $scope.showMainBtn = (btn) => {
           if (btn.show_only_if_selected === true) {
             if ($scope.haveSelectedUsers())
@@ -183,7 +183,7 @@
     $scope.change_password = {
       password: "",
       confirm_password: ""
-    }
+    };
     $scope.password_generator = (len) => {
       var length = (len) ? (len) : (10);
       var string = "abcdefghijklmnopqrstuvwxyz";
@@ -298,7 +298,7 @@
     };
     $scope.cancel = function () {
       $mdDialog.cancel();
-    }
+    };
 
   };
 
@@ -353,7 +353,7 @@
 
     $scope.onError = function (err) {
       $mdToast.showSimple("Error : " + err);
-    }
+    };
     $scope.newUserOK = (usrForm, usr, doSendMail) => {
       usrForm.$setDirty();
       if (usrForm.$valid) {
@@ -370,7 +370,7 @@
                   }
                   $mdToast.showSimple("Account successfully created.");
                   $mdDialog.hide(usr);
-                }, $scope.onError)
+                }, $scope.onError);
             }, $scope.onError);
           return;
         }
