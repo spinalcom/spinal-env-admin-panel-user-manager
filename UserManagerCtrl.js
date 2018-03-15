@@ -259,9 +259,8 @@
         SpinalUserManagerService.change_password_by_admin(user.name, change_password.password)
           .then(function () {
             if (mailto) {
-              $scope.sendMail(user.name, "Your SpinalBIM password has been reset",
-                "Hello%2C%0A%0AYour%20admin%20have%20requested%20to%20reset%20your%20password%2C%0A%0AThe%20new%20password%20is%20the%20following%20%3A%0A%0A%0A" +
-                encodeURI(change_password.password));
+              $scope.sendMail(user.name, "Réinitialisation mot de passe SpinalBIM",
+                `Bonjour+-+vous+recevez+ce+message+suite+%C3%A0+la+r%C3%A9initialisation+de+votre+mot+de+passe+par+votre+administrateur+de+la+plateforme+SpinalBIM.%0D%0A%0D%0AVotre+nouveau+mot+de+passe+est+le+%3A+${encodeURI(change_password.password)}%0D%0A%0D%0ABonne+journ%C3%A9e%0D%0A`);
             }
             $mdToast.showSimple("Password has been successfully modified.");
           }, $scope.onError);
@@ -363,10 +362,8 @@
               return SpinalUserManagerService.change_account_rights_by_admin(usr.name, usr.type)
                 .then(function () {
                   if (doSendMail) {
-                    $scope.sendMail(usr.name, "Your SpinalBIM account has been created",
-                      "Hello%2C%0A%0AYour%20admin%20have%20created%20your%20SpinalBIM%20account.%0A%0ALogin%09%3A%09" +
-                      encodeURI(usr.name) + "%0APassword%09%3A%09" + encodeURI(usr.password) +
-                      "%0A%0A%0APlease%20change%20your%20account%20password%20when%20logged%20in.");
+                    $scope.sendMail(usr.name, "Votre compte SpinalBIM a été créé",
+                      `Bonjour+-+vous+recevez+ce+message+suite+%C3%A0+la+cr%C3%A9ation+de+votre+compte+sur+la+plateforme+SpinalBIM+par+votre+administrateur.%0D%0A%0D%0AVotre+login+est+le+%3A+${encodeURI(usr.name)}%0D%0AVotre+mot+de+passe+est+le+%3A+${encodeURI(usr.password)}%0D%0A%0D%0ANous+vous+invitons+%C3%A0+modifier+votre+mot+de+passe+d%C3%A8s+que+possible+pour+des+raisons+de+s%C3%A9curit%C3%A9.+Pour+cela%2C+veuillez+aller+au+menu+%C2%AB+user+%C2%BB+en+haut+a+droite+puis+cliquer+sur+%C2%AB+Change+Password+%C2%BB+%0D%0A`);
                   }
                   $mdToast.showSimple("Account successfully created.");
                   $mdDialog.hide(usr);

@@ -1,6 +1,6 @@
 {
   "name": "spinal-env-admin-panel-user-manager",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "spinal-env-admin-panel-user-manager",
   "main": "main.js",
   "dependencies": {},
@@ -11,7 +11,5 @@
     "create_plugin_template": "create_plugin_template"
   },
   "author": "Laurent HA TAM DAN",
-  "license": "SEE LICENSE IN license.pdf",
-  "src": ["main.js"],
-  "srcTemplate": ["templates/spinal-env-admin-panel-user-manager/user-manager-panel.html"]
+  "license": "SEE LICENSE IN license.pdf"
 }

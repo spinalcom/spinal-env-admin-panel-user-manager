@@ -24,7 +24,7 @@
               <md-select name="type" ng-model="userType" required>
                 <md-option value="1">User</md-option>
                 <md-option value="0">Admin</md-option>
-                <md-option value="2">Suspended</md-option>
+                <!-- <md-option value="2">Suspended</md-option> -->
               </md-select>
             </md-input-container>
             <md-dialog-actions layout="row">
@@ -79,7 +79,7 @@
               </md-button>
               <span flex></span>
               <md-checkbox ng-model="doSendMail" style="margin-bottom: 0;">
-                Prepare a mail
+                Prepare a email
               </md-checkbox>
               <md-button class="md-fab" aria-label="Confirm" style="height: 40px; width: 40px;" ng-disabled="newpassword.$invalid" ng-click="changePasswordSubmit(newpassword, change_password, doSendMail)">
                 <md-tooltip>Confirm</md-tooltip>
