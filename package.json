@@ -1,9 +1,11 @@
 {
   "name": "spinal-env-admin-panel-user-manager",
-  "version": "v1.0.2",
+  "version": "v2.0.0",
   "description": "spinal-env-admin-panel-user-manager",
   "main": "main.js",
-  "dependencies": {},
+  "dependencies": {
+    "spinal-browser-user_role_manager": "https://github.com/spinalcom/spinal-browser-user_role_manager.git"
+  },
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
